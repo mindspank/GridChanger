@@ -1,0 +1,17 @@
+{
+  "name": "gridchanger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "promise": "^7.0.4",
+    "qsocks": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Karlsson <akl@qlik.com>",
+  "license": "ISC"
+}

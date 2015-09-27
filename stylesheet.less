@@ -1,0 +1,122 @@
+* {
+    & > * {
+        padding: 0;
+        margin: 0;
+    }
+}
+body {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+}
+header {
+    position: fixed;
+    font-family: arial;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: #3e313c;
+    line-height: 60px;
+    font-size: 24px;
+    color: #fff;
+    padding-left: 20px;
+}
+#maincontent {
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    background: rgba(179, 179, 179, 0.25);
+    
+    .app {
+        flex: 0 0 180px;
+        height: 130px;
+        margin: 20px;
+        background-size: 180px 100px;
+        background-repeat: no-repeat;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        position: relative;
+        -webkit-box-shadow: 3px 10px 27px -11px #8f8f8f;
+        -moz-box-shadow: 3px 10px 27px -11px #8f8f8f;
+        box-shadow: 3px 10px 27px -11px #8f8f8f;
+        transition: all 0.1s ease-in-out;
+        cursor: pointer;
+        
+        p {
+            font-size: 15px;
+            font-weight: normal;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0px;
+            bottom: 5px;
+            font-family: 'arial';
+        }
+        
+    }
+    
+    .app:hover {
+        transform: scale(1.1);
+    }
+    
+}
+.popover {
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    
+    .pop-content-container {
+        flex: 1 1 100%;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: center;
+        
+        .modal {
+            max-width: 670px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            background-clip: padding-box;
+            box-shadow: 0 15px 30px 6px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            width: 75%;
+            color: #595959;
+            background: #fff;
+            padding: 30px;
+        }
+        
+    }
+
+}
+
+.spinner {
+    height: 200px;
+    flex: 0 0 200px;
+    -webkit-animation-name: rotate;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -webkit-transform: rotate(360deg);
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
