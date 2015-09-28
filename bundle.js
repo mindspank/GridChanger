@@ -114,7 +114,7 @@ function renderSheets(sheets) {
 	var $main = $('.content')
 	$main.empty();
 	
-	$main.append('<h2>Edit the grid size of your sheets</h2>')
+	$main.append('<h2>Edit the grid size of your sheets</h2><p class="subheading">After you saved your changes, open your app in Desktop to enjoy your new grid size.')
 	
 	return Promise.all(sheets.map(function(d) {
 		return Q.app.getObject(d.qId).then(function(handle) {

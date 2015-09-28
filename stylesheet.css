@@ -26,16 +26,17 @@ header {
   right: 0;
   bottom: 0;
   display: flex;
+  background: rgba(179, 179, 179, 0.25);
 }
 .box {
   overflow: auto;
+  width: 100%;
 }
 #maincontent {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  background: rgba(179, 179, 179, 0.25);
   min-height: -webkit-min-content;
 }
 #maincontent .app {
@@ -102,6 +103,12 @@ header {
 }
 .popover .pop-content-container .modal h2 {
   margin: 20px 0;
+  font-family: 'arial';
+  margin-bottom: 0;
+}
+.popover .pop-content-container .modal .subheading {
+  margin-bottom: 40px;
+  font-size: 14px;
   font-family: 'arial';
 }
 .popover .pop-content-container .modal button {
