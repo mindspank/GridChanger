@@ -21,13 +21,27 @@ header {
     color: #fff;
     padding-left: 20px;
 }
+
+.main {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.box {
+    overflow: auto;
+}
+
 #maincontent {
     width: 100%;
-    margin-top: 60px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     background: rgba(179, 179, 179, 0.25);
+    min-height: -webkit-min-content;
     
     .app {
         flex: 0 0 180px;
