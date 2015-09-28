@@ -129,9 +129,6 @@ table {
   font-family: 'arial';
   margin-bottom: 40px;
 }
-table thead {
-  text-align: left;
-}
 table tbody .sheet-title {
   width: 250px;
 }
@@ -141,6 +138,10 @@ table tbody .colrow {
 table th,
 table td {
   padding: 10px 10px 5px 0;
+}
+table .colrow {
+  border: 1px solid #eee;
+  text-align: center;
 }
 .spinner {
   height: 200px;

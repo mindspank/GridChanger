@@ -122,7 +122,7 @@ function renderSheets(sheets) {
 	}))
 	.then(function(sheets) {
 		return new Promise(function(resolve, reject) {
-			var $table = $('<table><thead><tr><th>Sheet Title</th><th>Columns</th><th>Rows</th></tr></thead><tbody></tbody></table>');
+			var $table = $('<table><thead><tr><th style="text-align: left;">Sheet Title</th><th>Columns</th><th>Rows</th></tr></thead><tbody></tbody></table>');
 			var compiled = _.template(['<tr data-id=${ sheetid }>',
 				'<td class="sheet-title">${ title }</td>',
 				'<td class="colrow col" contenteditable=true >${ columns }</td>',
