@@ -1,37 +1,76 @@
 var qsocks = require('qsocks')
 var $ = require('jquery')
+var _ = require('lodash')
 var Promise = require('promise')
 var popover = require('./popover')
 
-var Q = {
-	sheets: []
-}
+var Q = {}
 
-
-qsocks.Connect().then(function(global) {
-	Q.global = global;
+var connection = qsocks.Connect();
+connection.then(function(global) {
 		
 	global.getDocList()
 	.then(renderApps)
 	
+	$('.popover').on('click', 'button#cancel', function(event) {
+		Q.app.connection.ws.close()
+		popover.hide()
+	})
+	
+	$('.popover').on('click', 'button#save', function(event) {
+		
+		var elements = $('.popover tr').toArray().slice(1)
+		
+		Promise.all(elements.map(function(d) {
+			var $d = $(d);
+			return Q.app.getObject( $d.data('id') ).then(function(obj) {
+				obj.applyPatches([{
+					qPath: '/columns',
+					qOp: 'replace',
+					qValue: $(d).find('.col').text()
+				},{
+					qPath: '/rows',
+					qOp: 'replace',
+					qValue: $(d).find('.row').text()
+				}])
+			})
+		}))
+		.then(function() {
+			return Q.app.doSave();
+		})
+		.then(function() {
+			Q.app.connection.ws.close()
+			popover.hide()
+		})
+		.catch(function(error) {
+			console.log(error)
+		})
+
+	})
+	
 	$('#maincontent').on('click', '.app', function(event) {
+		popover.showSpinner()
 		popover.show()
 		
 		var appId = $(this).data('appid')
-		var connection = qsocks.Connect({appname: appId})
+		var appconnection = qsocks.Connect({appname: appId})
 		
-		fetchSheets(connection, appId)
+		fetchSheets(appconnection, appId)
+		.then(renderSheets)
+		.catch(function() {
+			popover.error('Something went wrong, you should tell someone...')
+		})
 		
 				
 	})
 	
 
-}, function(error) {
-	console.log(error);
+}, function() { 
+	popover.error('It seems your Qlik Sense Desktop is not running<br>Please start it and refresh the page.');
 })
 
+
 function renderApps(list) {
-	console.log(list)
 	return new Promise(function(resolve,reject) {
 		var docs = list.map(function(d) {
 			
@@ -57,43 +96,58 @@ function renderApps(list) {
 	})	
 };
 
-function fetchSheets(global, appId) {
-		return global.openDoc(appId).then(function(app) {
-			Q.app = app;
-			return app.getAllInfos()
-		})
-		.then(function(infos) {
-			return infos.qInfos.filter(function(d) { return d.qType == 'sheet' })
+function fetchSheets(connection, appId) {
+		return connection.then(function(global) {
+			return global.openDoc(appId).then(function(app) {
+				Q.app = app;
+				return app.getAllInfos()
+			})
+			.then(function(infos) {
+				return infos.qInfos.filter(function(d) { return d.qType == 'sheet' })
+			})
 		})
 }
 
 function renderSheets(sheets) {
 	
-	var $main = $('.maincontent')
-	$main.find('.sheet').remove()
+	var $main = $('.content')
+	$main.empty();
 	
-	Promise.all(sheets.map(function(d) {
+	$main.append('<h2>Edit the grid size of your sheets</h2>')
+	
+	return Promise.all(sheets.map(function(d) {
 		return Q.app.getObject(d.qId).then(function(handle) {
 			return handle.getProperties();
 		})
 	}))
 	.then(function(sheets) {
-
-		sheets.forEach(function(d) {
-			var template = [
-				'<div class="sheet" id="' + d.qInfo.qId +'">',
-				'<p class="title">' + d.qMetaDef.title + '</p>',
-				'</div>'
-			].join('\n')
-			popover.hide()
-			
-			console.log(popover.hide)
-			
-			$(template).appendTo($main);
-
+		return new Promise(function(resolve, reject) {
+			var $table = $('<table><thead><tr><th>Sheet Title</th><th>Columns</th><th>Rows</th></tr></thead><tbody></tbody></table>');
+			var compiled = _.template(['<tr data-id=${ sheetid }>',
+				'<td class="sheet-title">${ title }</td>',
+				'<td class="colrow col" contenteditable=true >${ columns }</td>',
+				'<td class="colrow row" contenteditable=true >${ rows }</td>',
+				'</tr>'].join('\n'));
 				
+			sheets.forEach(function(d) {
+	
+				
+				$table.find('tbody').append(compiled({
+					sheetid: d.qInfo.qId,
+					title: d.qMetaDef.title,
+					columns: d.columns,
+					rows: d.rows
+				}))
+		
+			})
+			
+			$table.appendTo($main)
+			$('<button id="save">Save changes</button><button id="cancel">Cancel</button>').appendTo($main)	
+			popover.hideSpinner();
+			
+			resolve();	
+			
 		})
-
 	})
 		
 }

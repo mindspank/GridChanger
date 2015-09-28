@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "jquery": "^2.1.4",
+    "lodash": "^3.10.1",
     "promise": "^7.0.4",
     "qsocks": "^2.1.0"
   },

@@ -89,6 +89,48 @@ header {
   background: #fff;
   padding: 30px;
 }
+.popover .pop-content-container .modal h2 {
+  margin: 20px 0;
+  font-family: 'arial';
+}
+.popover .pop-content-container .modal button {
+  outline: none;
+  background: green;
+  color: #fff;
+  font-size: 16px;
+  width: 180px;
+  height: 40px;
+  border: 0;
+  cursor: pointer;
+}
+.popover .pop-content-container .modal button#save {
+  float: left;
+}
+.popover .pop-content-container .modal button#cancel {
+  float: right;
+}
+.popover .pop-content-container .modal .error {
+  font-size: 22px;
+  font-family: 'arial';
+}
+table {
+  font-size: 16px;
+  font-family: 'arial';
+  margin-bottom: 40px;
+}
+table thead {
+  text-align: left;
+}
+table tbody .sheet-title {
+  width: 250px;
+}
+table tbody .colrow {
+  width: 120px;
+}
+table th,
+table td {
+  padding: 10px 10px 5px 0;
+}
 .spinner {
   height: 200px;
   flex: 0 0 200px;

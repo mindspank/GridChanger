@@ -4,8 +4,11 @@ var popover = {
 	hide: function() {
 		$('.popover').css('display', 'none')
 	},
-	toggleSpinner: function() {
-		
+	hideSpinner: function() {
+		$('.spinner').css('display', 'none')		
+	},
+	showSpinner: function() {
+		$('.spinner').css('display', 'flex')		
 	},
 	show: function(message) {
 		$('.popover').find('.content').empty()
@@ -13,7 +16,8 @@ var popover = {
 		$('.popover').css('display', 'flex')
 	},
 	error: function(message) {
-		$('.popover').find('p').text(message || 'Something broke :(')
+		$('.spinner').css('display', 'none');		
+		$('.popover').find('.content').css('text-align', 'center').append('<p class="error">' + (message || 'Sad Panda') + '</p><img src="sad_panda.jpg"></img>')
 		$('.popover').css('display', 'flex')
 	}
 }

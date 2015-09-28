@@ -95,10 +95,64 @@ header {
             color: #595959;
             background: #fff;
             padding: 30px;
+            
+            h2 {
+                margin: 20px 0;
+                font-family: 'arial';
+            }
+            
+            button {
+                outline: none;
+                background: green;
+                color: #fff;
+                font-size: 16px;
+                width: 180px;
+                height: 40px;
+                border: 0;
+                cursor: pointer;
+                
+                &#save {
+                    float: left;
+                }
+                &#cancel {
+                    float: right;
+                }
+                
+            }
+            
+            .error {
+                font-size: 22px;
+                font-family: 'arial';
+            }
+            
         }
         
     }
 
+}
+
+table {
+    
+    font-size: 16px;
+    font-family: 'arial';
+    margin-bottom: 40px;
+    
+    thead {
+        text-align: left;
+    }
+    
+    tbody {
+        .sheet-title {
+            width: 250px; 
+        }
+        .colrow {
+            width: 120px;
+        }
+    }
+    
+    th, td {
+        padding: 10px 10px 5px 0;
+    }
 }
 
 .spinner {
